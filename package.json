@@ -1,0 +1,28 @@
+{
+  "name": "js-00017812",
+  "version": "1.0.0",
+  "description": "this is the app to be deployed",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/00017812/node-js-00017812.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/00017812/node-js-00017812/issues"
+  },
+  "homepage": "https://github.com/00017812/node-js-00017812#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "nodemon": "^3.1.9",
+    "pug": "^3.0.3"
+  }
+}

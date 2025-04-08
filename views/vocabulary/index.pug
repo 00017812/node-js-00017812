@@ -1,0 +1,28 @@
+extends ../head.pug
+
+block content  
+  .container.mt-4 
+    h1.mb-4 Flashcards 
+    a.btn.btn-add.mb-3(href="/vocabulary/create")  Add new word 
+    table.table.table-words
+      thead
+        tr
+          th ID
+          th Words
+          th Translation
+          th Image
+          th Date of adding 
+          th Actions
+      tbody
+        each vocabulary in vocabularies
+          tr
+            td= vocabulary.id
+            td= vocabulary.words
+            td= vocabulary.translation
+            td img 
+            td= vocabulary.dateofadding
+            td 
+              a.btn.btn-warning.btn-sm.mr-2(href=`/vocabulary/update/${vocabulary.id}`) Update 
+              span &nbsp;
+              a.a.btn.btn-danger.btn-sm.mr-2(href=`/vocabulary/delete/${vocabulary.id}`) Delete
+    

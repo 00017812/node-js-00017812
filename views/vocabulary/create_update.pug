@@ -1,0 +1,43 @@
+extends ../head.pug
+
+block content
+  .container.mt-4
+    - var formAction = vocabulary && vocabulary.id ? /api/vocabulary/update/${vocabulary.id} : '/api/vocabulary/create'
+    - var formTitle = vocabulary && vocabulary.id ? 'Update vocabulary' : 'Create vocabulary'
+    
+    // Determine field values
+    - var wVocabulary = vocabulary ? (vocabulary.vocabulary ? vocabulary.vocabulary : '') : ''
+    - var wTranslation = vocabulary ? (vocabulary.translation ? vocabulary.translation : '') : ''
+    - var wImage = vocabulary ? (vocabulary.image ? vocabulary.image : '') : ''
+    - var wDateAdded = vocabulary ? (vocabulary.dateAdded ? vocabulary.dateAdded : '') : ''
+
+    h1.mb-4= formTitle
+
+    // Display validation errors, if any
+    if errors && errors.length
+      .alert.alert-danger
+        ul
+          each err in errors
+            li #{err.msg}
+
+    form(method="post", action=formAction)
+      if vocabulary && vocabulary.id
+        input(type="hidden", name="id", value=vocabulary.id)
+
+      .form-group
+        label(for="vocabulary") vocabulary
+        input.form-control(type="text", name="vocabulary", id="vocabulary", value=wvocabulary, placeholder="Enter vocabulary")
+
+      .form-group
+        label(for="translation") Translation
+        input.form-control(type="text", name="translation", id="translation", value=wTranslation, placeholder="Enter translation")
+
+      .form-group
+        label(for="image") Image URL
+        input.form-control(type="text", name="image", id="image", value=wImage, placeholder="Enter image URL")
+
+      .form-group
+        label(for="dateAdded") Date Added
+        input.form-control(type="date", name="dateAdded", id="dateAdded", value=wDateAdded)
+
+      button.btn.btn-primary(type="submit") Submit

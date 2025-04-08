@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post('/create', vocabularyValidationRules(), vocabularyController.create);
 router.post('/update/:id', vocabularyValidationRules(), vocabularyController.update);
-router.get('/delete/:id', vocabularyValidationRules(), vocabularyController.delete);
+router.delete('/delete/:id', vocabularyController.delete);
+
 
 module.exports = router;

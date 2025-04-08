@@ -1,22 +1,27 @@
 const { validationResult } = require('express-validator');
 const vocabularyService = require('../service/vocabulary');
 
-const vocabularyController = {
 
-  getById: (req, res) => {
+const vocabularyController = {
+  getById: async (req, res) => {
     try {
-      const vocabulary = vocabularyService.getById(req, res);
-      res.render('vocabulary/create_update', { vocabulary })
+      const vocabulary = await vocabularyService.getById(req.params.id); // Await the service method
+      if (!vocabulary) {
+        return res.status(404).json({ error: 'Vocabulary not found' });
+      }
+      res.render('vocabulary/create_update', { vocabulary });
     } catch (error) {
+      console.error(error); // Log the error for debugging
       res.status(500).json({ error: error.message });
     }
   },
 
-  getAll: (req, res) => {
+  getAll: async (req, res) => {
     try {
-      const vocabularies = vocabularyService.get(req, res);
-      res.render('vocabulary/index', { vocabularies })
+      const vocabularies = await vocabularyService.get(); // Await the service method
+      res.render('vocabulary/index', { vocabularies });
     } catch (error) {
+      console.error(error); // Log the error for debugging
       res.status(500).json({ error: error.message });
     }
   },
@@ -27,20 +32,20 @@ const vocabularyController = {
       return res.render('vocabulary/create_update', { errors: errors.array(), vocabulary: req.body });
     }
     try {
-      await vocabularyService.insert(req, res);
+      const newVocabulary = await vocabularyService.insert(req, res);
       res.redirect('/vocabulary');
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  },
+},
 
-  update: async (req, res) => {
+update: async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.render('vocabulary/create_update', { errors: errors.array(), vocabulary: req.body });
     }
     try {
-      const updatedVocabulary = vocabularyService.update(req, res);
+      const updatedVocabulary = await vocabularyService.update(req, res);
       if (!updatedVocabulary) {
         return res.status(404).json({ error: 'Vocabulary not found' });
       }
@@ -48,16 +53,17 @@ const vocabularyController = {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  },
+},
 
-  delete: (req, res) => {
+  delete: async (req, res) => {
     try {
-      const deleted = vocabularyService.delete(req, res);
+      const deleted = await vocabularyService.delete(req.params.id); // Await the service method
       if (!deleted) {
         return res.status(404).json({ error: 'Vocabulary not found' });
       }
       res.redirect('/vocabulary');
     } catch (error) {
+      console.error(error); // Log the error for debugging
       res.status(500).json({ error: error.message });
     }
   }

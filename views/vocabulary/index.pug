@@ -20,10 +20,10 @@ block content
             td= vocabulary.words
             td= vocabulary.translation
             td 
-              
+              img(src=vocabulary.image, alt=vocabulary.words)
             td= vocabulary.dateofadding
             td 
               a.btn.btn-warning.btn-sm.mr-2(href=`/vocabulary/update/${vocabulary.id}`) Update 
-              span &nbsp;
-              a.a.btn.btn-danger.btn-sm.mr-2(href=`/vocabulary/delete/${vocabulary.id}`) Delete
-    
+            td 
+              form(action=`/api/vocabulary/delete/${vocabulary.id}`, method='POST', style='display:inline')
+              button.btn.btn-danger.btn-sm(type='submit') Delete

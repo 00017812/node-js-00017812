@@ -5,7 +5,6 @@ block content
     - var formAction = vocabulary && vocabulary.id ? /api/vocabulary/update/${vocabulary.id} : '/api/vocabulary/create'
     - var formTitle = vocabulary && vocabulary.id ? 'Update vocabulary' : 'Create vocabulary'
     
-    // Determine field values
     - var wVocabulary = vocabulary ? (vocabulary.vocabulary ? vocabulary.vocabulary : '') : ''
     - var wTranslation = vocabulary ? (vocabulary.translation ? vocabulary.translation : '') : ''
     - var wImage = vocabulary ? (vocabulary.image ? vocabulary.image : '') : ''
@@ -13,7 +12,6 @@ block content
 
     h1.mb-4= formTitle
 
-    // Display validation errors, if any
     if errors && errors.length
       .alert.alert-danger
         ul
@@ -40,4 +38,4 @@ block content
         label(for="dateAdded") Date Added
         input.form-control(type="date", name="dateAdded", id="dateAdded", value=wDateAdded)
 
-      button.btn.btn-primary(type="submit") Submit
+      button.btn.btn-submit(type="submit") Submit

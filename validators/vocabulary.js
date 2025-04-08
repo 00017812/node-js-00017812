@@ -2,12 +2,14 @@ const { body } = require('express-validator');
 
 const vocabularyValidationRules = () => { 
   return [
-    body('words')
-      .notEmpty().withMessage('words must not be empty'),
+    body('word') 
+      .notEmpty().withMessage('Word must not be empty'),
     body('translation')
-      .notEmpty().withMessage('translation must not be empty'),
-    body('dateofadding')
-      .notEmpty().withMessage('dateofadding must not be empty')
+      .notEmpty().withMessage('Translation must not be empty'),
+    body('image') 
+      .notEmpty().withMessage('Image URL must not be empty'),
+    body('dateAdded') 
+      .notEmpty().withMessage('Date Added must not be empty')
   ];
 };
 
